@@ -147,3 +147,7 @@ Rscript run_matrix_eqtl.R BRCA_19Feb_SNPs.txt BRCA_19Feb_SNP-locs.txt BRCA_19Feb
 
 * **Liam Flinn Spurr** - *Initial work, R scripts*
 * **Muzi Li** - *Python script*
+
+## Acknowledgements
+
+* MatrixEQTL team for their example script and R package upon which *run\_matrix_eqtl.R* is based
