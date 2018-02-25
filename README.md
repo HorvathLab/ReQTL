@@ -16,7 +16,7 @@ These instructions will get you a copy of the scripts up and running on your mac
 	build_fpkm_input.R
 	run_matrix_eqtl.R
 	```
-	You can obtain the full toolkit [here.]()
+	You can obtain the full toolkit [here.](https://github.com/HorvathLab/ReQTL/archive/master.zip)
 * Output files from [RNA2DNAlign](https://github.com/HorvathLab/RNA2DNAlign) in a directory structure like:
 
 	```	
