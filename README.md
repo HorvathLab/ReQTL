@@ -16,10 +16,9 @@ These instructions will get you a copy of the scripts up and running on your mac
 	run_matrix_eqtl.R
 	```
 	You can obtain the full toolkit [here.](https://github.com/HorvathLab/ReQTL/archive/master.zip)
-* Output files from our ReadCounts tool (https://github.com/HorvathLab/NGS/tree/master/readCounts) (one for each sample)
+* Output *.csv* files from our ReadCounts tool (https://github.com/HorvathLab/NGS/tree/master/readCounts) containing the read counts extracted per SNV for each sample
 
 * *gene_abund.tab* expression files from *Stringtie* (the scripts may be modified to take input from other expression quanitification software)
-* *.vcf* variant call files from Samtools *mpileup* 
 
 ## Running the scripts
 
@@ -29,8 +28,8 @@ These instructions will get you a copy of the scripts up and running on your mac
 Transforms the raw expression files into a matrix with information from all provided samples
 
 #### Input
-* Path to a folder with gene expression files (one per sample) from Stringtie
-* Names for the output gene expression and gene location files
+* A directory containing the gene expression files (one per sample) from Stringtie
+* The names of the output gene expression and gene location files
 
 
 #### Output
@@ -50,11 +49,11 @@ Rscript build_gene-exp_matrix.R /home/expression_files/ BRCA_gene-exp-matrix.txt
 
 ### build\_SNV_matrix.R
 
-Transforms the read counts and filtered *.vcf* files into a variant fraction matrix with information from all provided samples
+Transforms the read counts into a variant fraction matrix with information from all provided samples
 
 #### Input
-* A directory containing the *.vcf* files from the output of Readcounts	
-* A prefix for the output files
+* A directory containing the *.csv* files from the output of Readcounts	
+* The names of the output SNV matrix and SNV location files
 
 
 #### Output
@@ -64,7 +63,7 @@ Transforms the read counts and filtered *.vcf* files into a variant fraction mat
 
 #### Sample command
 ```
-Rscript build_SNV_matrix.R /home/vcfs/ BRCA_SNV_matrix.txt BRCA_SNV-loc-matrix.txt
+Rscript build_SNV_matrix.R /home/readcounts/ BRCA_SNV_matrix.txt BRCA_SNV-loc-matrix.txt
 ```
 &nbsp;
 
@@ -79,7 +78,7 @@ Rscript build_SNV_matrix.R /home/vcfs/ BRCA_SNV_matrix.txt BRCA_SNV-loc-matrix.t
 * Names of the SNP, SNP location, expression, and gene location files from build_gene-exp_matrix.R and build_SNV_matrix.R
 * Names of the cis and trans output files
 * Name of the output file for the qq plot (with .tiff extension)
-* *Optional:* name of the covariates file (requires modification of the script as specified in the in-code documentation) 
+* *NOTE:* Covariates file can be used (requires modification of the script as specified in the in-code documentation) 
 
 #### Output
 * One file (in the script’s directory) with the cis eQTLs with a p value < 0.00001
@@ -99,4 +98,4 @@ Rscript run_matrix_eqtl.R BRCA_SNV_matrix.txt BRCA_SNV-loc-matrix.txt BRCA_gene-
 ## Acknowledgements
 
 * Muzi Li and Nawaf Alomran for support and assistance in the development of this toolkit
-* MatrixEQTL team for their example script and R package upon which *run\_matrix_eqtl.R* is based
+* MatrixEQTL team for their sample code and R package upon which *run\_matrix_eqtl.R* is based
