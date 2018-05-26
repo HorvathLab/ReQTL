@@ -16,9 +16,9 @@ These instructions will get you a copy of the scripts up and running on your mac
 	run_matrix_eqtl.R
 	```
 	You can obtain the full toolkit [here.](https://github.com/HorvathLab/ReQTL/archive/master.zip)
-* Output files from our ReadCounts tool(https://github.com/HorvathLab/NGS/tree/master/readCounts) (one for each sample)
+* Output files from our ReadCounts tool (https://github.com/HorvathLab/NGS/tree/master/readCounts) (one for each sample)
 
-* *gene_abund.tab* expression files from *stringtie* (the scripts may be modified to take input from other expression quanitifaction software)
+* *gene_abund.tab* expression files from *Stringtie* (the scripts may be modified to take input from other expression quanitification software)
 * *.vcf* variant call files from Samtools *mpileup* 
 
 ## Running the scripts
@@ -92,7 +92,7 @@ Rscript run_matrix_eqtl.R BRCA_SNV_matrix.txt BRCA_SNV-loc-matrix.txt BRCA_gene-
 ```
 &nbsp;
 
-## Author
+## Authors
 
 * **Liam Flinn Spurr**
 
