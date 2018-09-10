@@ -1,7 +1,7 @@
 # LIAM SPURR
 # HORVATH LAB
-# 24MAY18
-# BUILD_SNV_MATRIX.R
+# 10SEP18
+# BUILD_VAF_MATRIX.R
 
 # install missing required packages and load packages
 load_package <- function(x) {
