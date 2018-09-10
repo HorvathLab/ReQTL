@@ -11,9 +11,9 @@ These instructions will get you a copy of the scripts up and running on your mac
 * Each of the following scripts copied to a working directory on your machine
 
 	```
-	build_SNV_matrix.R
+	build_VAF_matrix.R
 	build_gene-exp_matrix.R
-	run_matrix_eqtl.R
+	run_matrix_ReQTL.R
 	```
 	You can obtain the full toolkit [here.](https://github.com/HorvathLab/ReQTL/archive/master.zip)
 * Output *.csv* files from our ReadCounts tool (https://github.com/HorvathLab/NGS/tree/master/readCounts) containing the read counts extracted per SNV for each sample
@@ -47,7 +47,7 @@ Rscript build_gene-exp_matrix.R /home/expression_files/ BRCA_gene-exp-matrix.txt
 
 &nbsp;
 
-### build\_SNV_matrix.R
+### build\_VAF_matrix.R
 
 Transforms the read counts into a variant fraction matrix with information from all provided samples
 
@@ -71,7 +71,7 @@ Rscript build_SNV_matrix.R /home/readcounts/ BRCA_SNV_matrix.txt BRCA_SNV-loc-ma
 
 &nbsp;
 
-### run\_matrix_eqtl.R
+### run\_matrix_ReQTL.R
 
 #### Input
 
