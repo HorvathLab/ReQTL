@@ -63,7 +63,7 @@ Transforms the read counts into a variant fraction matrix with information from 
 
 #### Sample command
 ```
-Rscript build_SNV_matrix.R /home/readcounts/ BRCA_SNV_matrix.txt BRCA_SNV-loc-matrix.txt
+Rscript build_VAF_matrix.R /home/readcounts/ BRCA_SNV_matrix.txt BRCA_SNV-loc-matrix.txt
 ```
 &nbsp;
 
@@ -75,7 +75,7 @@ Rscript build_SNV_matrix.R /home/readcounts/ BRCA_SNV_matrix.txt BRCA_SNV-loc-ma
 
 #### Input
 
-* Names of the SNP, SNP location, expression, and gene location files from build_gene-exp_matrix.R and build_SNV_matrix.R
+* Names of the SNP, SNP location, expression, and gene location files from build_gene-exp_matrix.R and build_VAF_matrix.R
 * Names of the cis and trans output files
 * Name of the output file for the qq plot (with .tiff extension)
 * *NOTE:* Covariates file can be used (requires modification of the script as specified in the in-code documentation) 
@@ -87,7 +87,7 @@ Rscript build_SNV_matrix.R /home/readcounts/ BRCA_SNV_matrix.txt BRCA_SNV-loc-ma
 
 #### Sample command
 ```
-Rscript run_matrix_eqtl.R BRCA_SNV_matrix.txt BRCA_SNV-loc-matrix.txt BRCA_gene-exp-matrix.txt BRCA_gene-loc-matrix.txt BRCA_ReQTL_cis_output.txt BRCA_ReQTL_trans_output.txt BRCA_ReQTL_qqplot.tiff
+Rscript run_matrix_ReQTL.R BRCA_SNV_matrix.txt BRCA_SNV-loc-matrix.txt BRCA_gene-exp-matrix.txt BRCA_gene-loc-matrix.txt BRCA_ReQTL_cis_output.txt BRCA_ReQTL_trans_output.txt BRCA_ReQTL_qqplot.tiff
 ```
 &nbsp;
 
@@ -98,4 +98,4 @@ Rscript run_matrix_eqtl.R BRCA_SNV_matrix.txt BRCA_SNV-loc-matrix.txt BRCA_gene-
 ## Acknowledgements
 
 * Muzi Li and Nawaf Alomran for support and assistance in the development of this toolkit
-* MatrixEQTL team for their sample code and R package upon which *run\_matrix_eqtl.R* is based
+* MatrixEQTL team for their sample code and R package upon which *run\_matrix_ReQTL.R* is based
