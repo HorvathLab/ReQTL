@@ -17,12 +17,13 @@ These instructions will get you a copy of the scripts up and running on your mac
 	harmonize_matrices.R
 	run_matrix_ReQTL.R
 	annotate_cis_trans.R
-	
 	```
 	You can obtain the full toolkit [here.](https://github.com/HorvathLab/ReQTL/archive/master.zip)
 * Output *.csv* files from our ReadCounts tool (https://github.com/HorvathLab/NGS/tree/master/readCounts) containing the read counts extracted per SNV for each sample
 
 * *gene_abund.tab* expression files from *Stringtie* (the scripts may be modified to take input from other expression quanitification software)
+
+* (OPTIONAL) a file containing sample covariate information (see sample data)
 
 ## Running the scripts
 
@@ -91,7 +92,7 @@ Creates a matrix of sample covariates with information from all provided samples
 
 #### Sample command
 ```
-Rscript build_cov_matrix.R test_VAF_matrix.txt covariate_information.txt my_file_prefix
+Rscript build_cov_matrix.R VAF_matrix.txt covariate_information.txt my_file_prefix
 ```
 &nbsp;
 
@@ -115,7 +116,7 @@ Rscript build_cov_matrix.R test_VAF_matrix.txt covariate_information.txt my_file
 
 #### Sample command
 ```
-Rscript harmonize_matrices.R VAF_matrix.txt gene-exp-matrix.txt cov_matrix.txt my_output_prefix
+Rscript harmonize_matrices.R VAF_matrix.txt gene-exp-matrix.txt cov_matrix.txt my_file_prefix
 ```
 &nbsp;
 
@@ -133,20 +134,20 @@ Rscript harmonize_matrices.R VAF_matrix.txt gene-exp-matrix.txt cov_matrix.txt m
 
 
 #### Output
-* One file (in the script’s directory) with the cis ReQTLs
-* One file (in the script’s directory) with the trans ReQTLs
+* One file (in the script’s directory) with the *cis* ReQTLs
+* One file (in the script’s directory) with the *trans* ReQTLs
 OR
-* One file (in the script’s directory) with all of the unified eQTLs depending on the logical specified above
+* One file (in the script’s directory) with all of the unified ReQTLs depending on the logical specified above
 
 
 #### Sample commands
 
-Splitting cis and trans
+Splitting *cis* and *trans*
 ```
 Rscript run_matrix_ReQTL.R -s VAF_matrix_harmonized.txt -sl VAF-loc_matrix.txt -g gene-exp_matrix_harmonized.txt -gl gene-exp-loc_matrix.txt -c cov_matrix_harmonized.txt -ct T -qq test_qqplot -cis output_cis -tr output_tr -pcis 0.001 -ptr 0.00001
 ```
 
-Unified cis and trans
+Unified *cis* and *trans*
 ```
 Rscript run_matrix_ReQTL.R -s VAF_matrix_harmonized.txt -sl VAF-loc_matrix.txt -g gene-exp_matrix_harmonized.txt -gl gene-exp-loc_matrix.txt -c cov_matrix_harmonized.txt -ct F -qq test_qqplot -o output -p 0.0001
 ```
