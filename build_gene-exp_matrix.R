@@ -68,5 +68,5 @@ df_w <- df_w %>% select(gene_id, everything())
 
 # write outputs
 output_prefix <- args[2]
-write.table(df_w, paste0(output_prefix, '_gene-exp_norm_matrix.txt'), quote = F, row.names = F, sep = '\t')
+write.table(df_w, paste0(output_prefix, '_gene-exp_matrix.txt'), quote = F, row.names = F, sep = '\t')
 write.table(df_loc, paste0(output_prefix, '_gene-exp-loc_matrix.txt'), quote = F, row.names = F, sep = '\t')
