@@ -124,6 +124,7 @@ Rscript harmonize_matrices.R VAF_matrix.txt gene-exp-matrix.txt cov_matrix.txt m
 ### run\_matrix_ReQTL.R
 
 *This script is based off of the sample code from Shabalin, et al (2012)*
+
 Runs the ReQTL analysis using MatrixEQTL
 
 #### Input
