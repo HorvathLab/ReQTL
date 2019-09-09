@@ -1,6 +1,6 @@
 # ReQTL: Identifying SNV – gene expression correlations using RNA-sequencing data
 
-This toolkit contains the required scripts to transform sequencing files into ReQTL input files then run the MatrixEQTL R package to determine significant variation-expression relationships.
+This toolkit contains the required scripts to transform sequencing files into ReQTL input files and run the MatrixEQTL R package to identify significant variation-expression relationships.
 
 ## Getting Started
 
