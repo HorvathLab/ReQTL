@@ -37,7 +37,7 @@ handle_command_args <- function(args) {
   gene_location_file_name <<- arg_df$value[arg_df$flag == "-gl"]
   
   # Covariates file name
-  covariates_file_name <<- arg_df$value[arg_df$flag == "-c"]
+  covariates_file_name <<- ifelse(length(arg_df$value[arg_df$flag == "-c"]) > 0, arg_df$value[arg_df$flag == "-c"], "")
   
   # Whether to split into cis and trans
   split_cis_trans <<- arg_df$value[arg_df$flag == "-ct"]
@@ -97,7 +97,7 @@ cvrt$fileDelimiter = "\t"      # the TAB character
 cvrt$fileOmitCharacters = "NA" # denote missing values
 cvrt$fileSkipRows = 1          # one row of column labels
 cvrt$fileSkipColumns = 1       # one column of row labels
-if(length(covariates_file_name) > 0) {
+if(length(covariates_file_name) > 1) {
   cvrt$LoadFile(covariates_file_name)
 }
 
