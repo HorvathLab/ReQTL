@@ -102,6 +102,8 @@ Rscript build_cov_matrix.R VAF_matrix.txt covariate_information.txt my_file_pref
 
 ### harmonize\_matrices.R
 
+Harmonizes matrices so that all inputs for run_matrix_ReQTL.R contain the same samples (optional, but helps to avoid errors)
+
 #### Input
 
 * The path to the VAF matrix created by build_VAF_matrix.R
@@ -110,8 +112,7 @@ Rscript build_cov_matrix.R VAF_matrix.txt covariate_information.txt my_file_pref
 * The desired prefix of the output covariate matrix
 
 #### Output
-* One file (in the script’s directory) with the cis eQTLs with a p value < 0.00001
-* One file (in the script’s directory) with the trans eQTLs with a p value < 0.00001
+* The three input matrices with only the samples contained in all three
 
 
 #### Sample command
@@ -121,7 +122,9 @@ Rscript harmonize_matrices.R VAF_matrix.txt gene-exp-matrix.txt cov_matrix.txt m
 &nbsp;
 
 ### run\_matrix_ReQTL.R
+
 *This script is based off of the sample code from Shabalin, et al (2012)*
+Runs the ReQTL analysis using MatrixEQTL
 
 #### Input
 
@@ -154,6 +157,8 @@ Rscript run_matrix_ReQTL.R -s VAF_matrix_harmonized.txt -sl VAF-loc_matrix.txt -
 &nbsp;
 
 ### annotate\_cis_trans.R
+
+Annotates the output of ReQTL as cis/trans based on whether the SNV resides within its paired gene
 
 #### Input
 
