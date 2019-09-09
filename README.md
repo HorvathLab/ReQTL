@@ -109,7 +109,6 @@ Harmonizes matrices so that all inputs for run_matrix_ReQTL.R contain the same s
 * The path to the VAF matrix created by build_VAF_matrix.R
 * The path to the gene expression matrix created by build_gene-exp_matrix.R
 * The path to the covariate matrix created by build_cov_matrix.R (if no covariate information is used, you will need to modify this script to remove the references to the covariate matrix)
-* The desired prefix of the output covariate matrix
 
 #### Output
 * The three input matrices with only the samples contained in all three
@@ -117,7 +116,7 @@ Harmonizes matrices so that all inputs for run_matrix_ReQTL.R contain the same s
 
 #### Sample command
 ```
-Rscript harmonize_matrices.R VAF_matrix.txt gene-exp-matrix.txt cov_matrix.txt my_file_prefix
+Rscript harmonize_matrices.R VAF_matrix.txt gene-exp-matrix.txt cov_matrix.txt
 ```
 &nbsp;
 
