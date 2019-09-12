@@ -4,7 +4,7 @@ This toolkit contains the required scripts to transform sequencing files into Re
 
 ## Getting Started
 
-These instructions will get you a copy of the scripts up and running on your machine for development and testing purposes. See *Running the scripts* for notes on how to use the project on a live system.
+These instructions will get you a copy of the scripts up and running on your machine for development and testing purposes. See *Running the scripts* for notes on how to use the project on a live system. We have provided sample data that is meant only to demonstrate the formatting that is expected for the input data. Due to the small number of rows in our sample data, the code will not run as expected if the sample data is used directly as input.
 
 ### Prerequisites
 
