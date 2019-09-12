@@ -10,7 +10,7 @@ load_package <- function(x) {
   }
 }
 
-load_package("dplyr"); load_package("tidyr"); load_package("data.table")
+load_package("tidyverse"); load_package("data.table")
 
 # read arguments from the command line
 args <- commandArgs(trailingOnly = TRUE)
@@ -29,7 +29,7 @@ c.names <- colnames(cov)[-1]
 conc <- intersect(intersect(v.names, e.names), c.names)
 
 # select only the concordant samples from all 3 matrices
-vaf.clean <- vaf[,c("SNP", conc)]
+vaf.clean <- vaf[,c("SNV", conc)]
 exp.clean <- exp[,c("gene_id", conc)]
 cov.clean <- cov[,c("id", conc)]
 

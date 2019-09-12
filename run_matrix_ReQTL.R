@@ -29,8 +29,8 @@ handle_command_args <- function(args) {
   useModel <<- modelLINEAR
   
   # Genotype and gene location file names
-  SNP_file_name <<- arg_df$value[arg_df$flag == "-s"]
-  snps_location_file_name <<- arg_df$value[arg_df$flag == "-sl"]
+  SNV_file_name <<- arg_df$value[arg_df$flag == "-s"]
+  snvs_location_file_name <<- arg_df$value[arg_df$flag == "-sl"]
   
   # Gene expression file name
   expression_file_name <<- arg_df$value[arg_df$flag == "-g"]
@@ -58,7 +58,7 @@ handle_command_args <- function(args) {
     pvOutputThreshold_cis <<- as.numeric(arg_df$value[arg_df$flag == "-pcis"])
     pvOutputThreshold_tra <<- as.numeric(arg_df$value[arg_df$flag == "-ptr"])
     
-    # Distance for local gene-SNP pairs
+    # Distance for local gene-SNV pairs
     cisDist <<- 1e6
     
   } else {
@@ -73,13 +73,13 @@ handle_command_args <- function(args) {
 handle_command_args(args)
 
 ## Load genotype data
-snps <- SlicedData$new()
-snps$fileDelimiter = "\t"      # the TAB character
-snps$fileOmitCharacters = "NA" # denote missing values
-snps$fileSkipRows = 1          # one row of column labels
-snps$fileSkipColumns = 1       # one column of row labels
-snps$fileSliceSize = 2000      # read file in slices of 2,000 rows
-snps$LoadFile(SNP_file_name)
+snvs <- SlicedData$new()
+snvs$fileDelimiter = "\t"      # the TAB character
+snvs$fileOmitCharacters = "NA" # denote missing values
+snvs$fileSkipRows = 1          # one row of column labels
+snvs$fileSkipColumns = 1       # one column of row labels
+snvs$fileSliceSize = 2000      # read file in slices of 2,000 rows
+snvs$LoadFile(SNV_file_name)
 
 ## Load gene expression data
 
@@ -102,12 +102,12 @@ if(length(covariates_file_name) > 1) {
 }
 
 ## Run the analysis
-snpspos <- read.table(snps_location_file_name, header = TRUE, stringsAsFactors = FALSE)
+snvspos <- read.table(snvs_location_file_name, header = TRUE, stringsAsFactors = FALSE)
 genepos <- read.table(gene_location_file_name, header = TRUE, stringsAsFactors = FALSE)
 
 if(split_cis_trans == "T") {
   me <- Matrix_eQTL_main(
-    snps = snps, 
+    snps = snvs, 
     gene = gene, 
     cvrt = cvrt,
     output_file_name = output_file_name_tra,
@@ -117,7 +117,7 @@ if(split_cis_trans == "T") {
     verbose = TRUE, 
     output_file_name.cis = output_file_name_cis,
     pvOutputThreshold.cis = pvOutputThreshold_cis,
-    snpspos = snpspos, 
+    snpspos = snvspos, 
     genepos = genepos,
     cisDist = cisDist,
     pvalue.hist = "qqplot",
@@ -125,7 +125,7 @@ if(split_cis_trans == "T") {
     noFDRsaveMemory = FALSE)
 } else {
   me <- Matrix_eQTL_main(
-    snps = snps, 
+    snps = snvs, 
     gene = gene, 
     cvrt = cvrt,
     output_file_name = output_file_name,
@@ -133,7 +133,7 @@ if(split_cis_trans == "T") {
     errorCovariance = errorCovariance, 
     verbose = TRUE, 
     pvOutputThreshold= pvOutputThreshold,
-    snpspos = snpspos, 
+    snpspos = snvspos, 
     genepos = genepos,
     pvalue.hist = "qqplot",
     min.pv.by.genesnp = FALSE,

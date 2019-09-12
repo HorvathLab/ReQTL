@@ -10,7 +10,7 @@ load_package <- function(x) {
   }
 }
 
-load_package("dplyr"); load_package("tidyr"); load_package("data.table");
+load_package("tidyverse"); load_package("data.table");
 
 # take arguments from the command line
 args <- commandArgs(trailingOnly = TRUE)
@@ -29,33 +29,33 @@ df <- bind_rows(lapply(snv_files, function(f) {
     mutate(AlignedReads = gsub(x = AlignedReads, pattern = '\\.sorted', replacement = ''))
 }))
 
-# get number of samples and create SNP identifier
+# get number of samples and create SNV identifier
 num_samples <- length(levels(factor(df$AlignedReads)))
-df <- df %>% mutate(SNP = paste0(CHROM, ':', POS, '_', REF, '>', ALT))
+df <- df %>% mutate(SNV = paste0(CHROM, ':', POS, '_', REF, '>', ALT))
 
 # remove variants that are homozygous variant in more than 80% of the samples
-df <- df %>% group_by(SNP) %>% mutate(count_homo_var = length(which(R == 1)),
+df <- df %>% group_by(SNV) %>% mutate(count_homo_var = length(which(R == 1)),
                                      perc_homo_var = count_homo_var / num_samples) %>% ungroup()
 df <- df %>% filter(perc_homo_var < 0.8)
 
 # remove variants that are homozygous reference in more than 80% of the samples
-df <- df %>% group_by(SNP) %>% mutate(count_homo_ref = length(which(R == 0)),
+df <- df %>% group_by(SNV) %>% mutate(count_homo_ref = length(which(R == 0)),
                                      perc_homo_ref = count_homo_ref / num_samples) %>% ungroup()
 df <- df %>% filter(perc_homo_ref < 0.8)
 
 # remove variants that are NA in more than 80% of the samples
-df <- df %>% group_by(SNP) %>% mutate(count = n(),
+df <- df %>% group_by(SNV) %>% mutate(count = n(),
                                       perc_non_na = count / num_samples) %>% ungroup()
 df <- df %>% filter(perc_non_na > 0.2)
 
-# select relevant columns and create SNP location matrix
-df_loc <- df %>% select(SNP, CHROM, POS) %>% distinct() %>% mutate(CHROM = paste0('chr', CHROM))
+# select relevant columns and create SNV location matrix
+df_loc <- df %>% select(SNV, CHROM, POS) %>% distinct() %>% mutate(CHROM = paste0('chr', CHROM))
 df_loc <- as.matrix(df_loc)
 
 # remove excess columns
-df <- df %>% select(SNP, AlignedReads, R)
+df <- df %>% select(SNV, AlignedReads, R)
 
-# build the SNP matrix
+# build the SNV matrix
 df <- df %>% spread(AlignedReads, R)
 df <- as.matrix(df)
 

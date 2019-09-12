@@ -10,7 +10,7 @@ load_package <- function(x) {
   }
 }
 
-load_package("dplyr"); load_package("tidyr"); load_package("data.table");
+load_package("dplyr"); load_package("tidyverse")
 
 # take arguments from the command line
 args <- commandArgs(trailingOnly = TRUE)
@@ -22,20 +22,21 @@ exp_files <- list.files(path = exp_path, pattern = 'gene_abund')
 
 # load in the readcounts
 df <- bind_rows(lapply(exp_files, function(f) {
-  # select the necessary columns, fix sample name formatting, and remove genes without an annotation
+  # select the necessary columns, including gene position and TPM value
+  # fix sample name formatting, and remove genes without an annotation
   fread(paste0(exp_path, f)) %>% 
-    select(1,2,3,5,6,9) %>% 
+    select(`Gene ID`,`Gene Name`, Reference, Start, End, TPM) %>% 
     mutate(sample = gsub(x = f, pattern = '_.*$', replacement = '')) %>%
     filter(`Gene Name` != '-')
 }))
 
 # create gene coordinate table
-df_loc <- df %>% select(1,3,4,5) %>% 
+df_loc <- df %>% select(`Gene ID`, Reference, Start, End) %>% 
   distinct() %>% 
   mutate(Reference = paste0('chr', Reference)) %>% 
   rename(GeneID = `Gene ID`)
 
-df <- df %>% select(1,2,6,7)
+df <- df %>% select(`Gene ID`, `Gene Name`, TPM, sample)
 
 # get number of samples
 num_samples <- length(levels(factor(df$sample)))

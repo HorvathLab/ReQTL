@@ -27,10 +27,10 @@ gene_locs <- fread(args[2])
 res <- left_join(reqtls, gene_locs, by = c("gene" = "GeneID")) 
 res <- res %>%
   mutate(Reference = gsub("chr", "", Reference),
-         newSNP = SNP) %>%
-  separate(newSNP, into = c("chrom", "pos", "ref", "alt")) %>% 
+         newSNV = SNV) %>%
+  separate(newSNV, into = c("chrom", "pos", "ref", "alt")) %>% 
   mutate(class = ifelse(Reference == chrom & (pos >= Start & pos <= End), "cis", "trans")) %>%
-  select(SNP:FDR, class)
+  select(SNV:FDR, class)
 
 # write the results to a file
 output_prefix <- args[3]
