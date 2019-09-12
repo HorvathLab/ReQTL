@@ -128,7 +128,7 @@ Runs the ReQTL analysis using MatrixEQTL
 
 #### Input
 
-* Names of the SNP (-s), SNP location (-sl), gene expression (-g), and gene location (-gl) files from build_gene-exp_matrix.R and build_VAF_matrix.R (or harmonize_matrices.R)
+* Names of the SNV (-s), SNV location (-sl), gene expression (-g), and gene location (-gl) files from build_gene-exp_matrix.R and build_VAF_matrix.R (or harmonize_matrices.R)
 * *OPTIONAL:* Name of the covariates file from build_covariates_file.R (-c)
 * Logical (T or F, -ct) specifying whether to split the output into *cis* and *trans*
 * Name of the output file for the qq plot (-qq)
