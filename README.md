@@ -4,7 +4,7 @@ This toolkit contains the required scripts to transform sequencing files into Re
 
 ## Getting Started
 
-These instructions will get you a copy of the scripts up and running on your machine for development and testing purposes. See *Running the scripts* for notes on how to use the project on a live system. We have provided sample data that is meant only to demonstrate the formatting that is expected for the input data. Due to the small number of rows in our sample data, the code will not run as expected if the sample data is used directly as input.
+These instructions will get you a copy of the scripts up and running on your machine for development and testing purposes. See *Running the scripts* for notes on how to use the project on a live system. We have provided sample data that can be used to test the pipeline. It also serves as an example of the data format the pipeline expects.
 
 ### Prerequisites
 
@@ -13,7 +13,6 @@ These instructions will get you a copy of the scripts up and running on your mac
 	```
 	build_gene-exp_matrix.R
 	build_VAF_matrix.R
-	build_cov_matrix
 	harmonize_matrices.R
 	run_matrix_ReQTL.R
 	annotate_cis_trans.R
@@ -76,30 +75,6 @@ Rscript build_VAF_matrix.R /home/readcounts/ my_file_prefix
 
 &nbsp;
 
-### build\_cov_matrix.R
-
-Creates a matrix of sample covariates with information from all provided samples
-
-#### Input
-* The path to the VAF matrix created by build_VAF_matrix.R
-* The path to a file with sample covariate information (see example input data)
-* The desired prefix of the output covariate matrix
-
-
-#### Output
-* One file (in the script’s directory) with the covariate information in the correct format for MatrixEQTL, containing the first three principal components of the genotypes as well as any information contained in the supplied covariate information file
-
-
-#### Sample command
-```
-Rscript build_cov_matrix.R VAF_matrix.txt covariate_information.txt my_file_prefix
-```
-&nbsp;
-
-***
-
-&nbsp;
-
 ### harmonize\_matrices.R
 
 Harmonizes matrices so that all inputs for run_matrix_ReQTL.R contain the same samples (optional, but helps to avoid errors)
@@ -129,7 +104,7 @@ Runs the ReQTL analysis using MatrixEQTL
 #### Input
 
 * Names of the SNV (-s), SNV location (-sl), gene expression (-g), and gene location (-gl) files from build_gene-exp_matrix.R and build_VAF_matrix.R (or harmonize_matrices.R)
-* *OPTIONAL:* Name of the covariates file from build_covariates_file.R (-c)
+* *OPTIONAL:* Name of the covariates matrix (-c); we include an example in the "data" folder
 * Logical (T or F, -ct) specifying whether to split the output into *cis* and *trans*
 * Name of the output file for the qq plot (-qq)
 * Names of the *cis* (-cis) and *trans* (-tr) output files or the unified output file (-o) depending on the logical specified above
