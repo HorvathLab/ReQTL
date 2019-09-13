@@ -95,6 +95,10 @@ Rscript harmonize_matrices.R VAF_matrix.txt gene-exp-matrix.txt cov_matrix.txt
 ```
 &nbsp;
 
+***
+
+&nbsp;
+
 ### run\_matrix_ReQTL.R
 
 *This script is based off of the sample code from Shabalin, et al (2012)*
