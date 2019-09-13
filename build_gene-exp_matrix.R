@@ -17,8 +17,10 @@ args <- commandArgs(trailingOnly = TRUE)
 
 # identify the location of the readcount files
 # you may wish to modify the pattern to match the naming conventions of your samples
+# the pattern identified here is the suffix of the samples that will later be removed to get the sample name 
 exp_path <- args[1]
-exp_files <- list.files(path = exp_path, pattern = 'gene_abund')
+pattern <- "_gene_abund.tab"
+exp_files <- list.files(path = exp_path, pattern = pattern)
 
 # load in the readcounts
 df <- bind_rows(lapply(exp_files, function(f) {
@@ -26,7 +28,7 @@ df <- bind_rows(lapply(exp_files, function(f) {
   # fix sample name formatting, and remove genes without an annotation
   fread(paste0(exp_path, f)) %>% 
     select(`Gene ID`,`Gene Name`, Reference, Start, End, TPM) %>% 
-    mutate(sample = gsub(x = f, pattern = '_.*$', replacement = '')) %>%
+    mutate(sample = gsub(x = f, pattern = pattern, replacement = '')) %>% # remove sample name suffix specified in "pattern"
     filter(`Gene Name` != '-')
 }))
 
