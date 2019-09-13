@@ -1,3 +1,0 @@
-Run	submitted_subject_id	body_site	SEX	AGE	RACE
-sample1	XXXXX	Brain	1	40	3
-sample2	YYYYY	Lung	1	23	3
