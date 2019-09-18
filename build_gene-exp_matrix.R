@@ -10,7 +10,7 @@ load_package <- function(x) {
   }
 }
 
-load_package("dplyr"); load_package("tidyverse")
+load_package("data.table"); load_package("tidyverse")
 
 # take arguments from the command line
 args <- commandArgs(trailingOnly = TRUE)
