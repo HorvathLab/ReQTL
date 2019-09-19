@@ -158,4 +158,5 @@ Rscript annotate_cis_trans.R output.txt gene-exp-loc_matrix.txt my_file_prefix
 ## Authors and Acknowledgements
 
 *Liam Spurr*, Nawaf Alomran, Pavlos Bousounis, Dacian Reece-Stremtan, Prashant N M, Hongyu Liu, Piotr Słowiński, Muzi Li, Qianqian Zhang, Justin Sein, Gabriel Asher, Keith A. Crandall, Krasimira Tsaneva-Atanasova, and Anelia Horvath 
-* We thank the Matrix EQTL team for their sample code and R package upon which *run\_matrix_ReQTL.R* is based
+
+We would like to thank the Matrix EQTL team (Shabalin, et al. 2012) for their sample code and R package upon which *run\_matrix_ReQTL.R* is based.
