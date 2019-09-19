@@ -42,7 +42,7 @@ Transforms the raw expression files into a matrix with information from all prov
 
 #### Sample Command
 ```
-Rscript build_gene-exp_matrix.R /home/expression_files/ my_file_prefix
+Rscript build_gene-exp_matrix.R data/ my_file_prefix
 ```
 
 &nbsp;
@@ -67,7 +67,7 @@ Transforms the read counts into a variant fraction matrix with information from 
 
 #### Sample command
 ```
-Rscript build_VAF_matrix.R /home/readcounts/ my_file_prefix
+Rscript build_VAF_matrix.R data/ my_file_prefix
 ```
 &nbsp;
 
@@ -91,7 +91,7 @@ Harmonizes matrices so that all inputs for run_matrix_ReQTL.R contain the same s
 
 #### Sample command
 ```
-Rscript harmonize_matrices.R VAF_matrix.txt gene-exp-matrix.txt cov_matrix.txt
+Rscript harmonize_matrices.R VAF_matrix.txt gene-exp-matrix.txt covariates_matrix.txt
 ```
 &nbsp;
 
@@ -126,12 +126,12 @@ OR
 
 Splitting *cis* and *trans*
 ```
-Rscript run_matrix_ReQTL.R -s VAF_matrix_harmonized.txt -sl VAF-loc_matrix.txt -g gene-exp_matrix_harmonized.txt -gl gene-exp-loc_matrix.txt -c cov_matrix_harmonized.txt -ct T -qq test_qqplot -cis output_cis -tr output_tr -pcis 0.001 -ptr 0.00001
+Rscript run_matrix_ReQTL.R -s VAF_matrix_harmonized.txt -sl VAF-loc_matrix.txt -g gene-exp_matrix_harmonized.txt -gl gene-exp-loc_matrix.txt -c covariates_matrix_harmonized.txt -ct T -qq test_qqplot -cis output_cis -tr output_tr -pcis 0.001 -ptr 0.00001
 ```
 
 Unified *cis* and *trans*
 ```
-Rscript run_matrix_ReQTL.R -s VAF_matrix_harmonized.txt -sl VAF-loc_matrix.txt -g gene-exp_matrix_harmonized.txt -gl gene-exp-loc_matrix.txt -c cov_matrix_harmonized.txt -ct F -qq test_qqplot -o output -p 0.0001
+Rscript run_matrix_ReQTL.R -s VAF_matrix_harmonized.txt -sl VAF-loc_matrix.txt -g gene-exp_matrix_harmonized.txt -gl gene-exp-loc_matrix.txt -c covariates_matrix_harmonized.txt -ct F -qq test_qqplot -o output -p 0.0001
 ```
 &nbsp;
 
