@@ -115,11 +115,7 @@ Runs the ReQTL analysis using MatrixEQTL
 
 
 #### Output
-* One file (in the script’s directory) with the *cis* ReQTLs
-* One file (in the script’s directory) with the *trans* ReQTLs
-OR
-* One file (in the script’s directory) with all of the unified ReQTLs depending on the logical specified above
-
+* One file (in the script’s directory) with the *cis* ReQTLs and one file (in the script’s directory) with the *trans* ReQTLs OR one file (in the script’s directory) with all of the unified ReQTLs depending on the logical specified above
 * One QQ plot of p-values
 
 
