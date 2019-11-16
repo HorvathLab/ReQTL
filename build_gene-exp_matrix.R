@@ -1,6 +1,5 @@
 # BUILD_GENE-EXP_MATRIX.R
-# LAST UPDATED BY LIAM FLINN SPURR ON SEPTEMBER 9, 2019
-# THIS SCRIPT BUILDS THE GENE EXPRESSION MATRIX FOR REQTL ANALYSIS
+# LAST UPDATED BY LIAM FLINN SPURR ON NOVEMBER 09, 2019
 
 # install missing required packages and load packages
 load_package <- function(x) {
@@ -12,15 +11,28 @@ load_package <- function(x) {
 
 load_package("data.table"); load_package("tidyverse")
 
+handle_command_args <- function(args) {
+  # make sure all flags are paired
+  if(length(args) %% 2 != 0) stop("Command line arguments supplied incorrectly!")
+  
+  # load the flags into a "dictionary"
+  arg_df <- data.frame(cbind(flag = args[seq(1, length(args), by = 2)], value = args[seq(2, length(args), by = 2)])) %>%
+    mutate_all(as.character)
+  
+  # identify the location of the readcount files
+  # you may wish to modify the pattern to match the naming conventions of your samples
+  # the pattern identified here is the suffix of the samples that will later be removed to get the sample name 
+  exp_path <<- arg_df$value[arg_df$flag == "-e"]
+  pattern <<- "_gene_abund.tab"
+  exp_files <<- list.files(path = exp_path, pattern = pattern)
+  
+  # specify output prefix
+  output_prefix <<- arg_df$value[arg_df$flag == "-o"]
+}
+
 # take arguments from the command line
 args <- commandArgs(trailingOnly = TRUE)
-
-# identify the location of the readcount files
-# you may wish to modify the pattern to match the naming conventions of your samples
-# the pattern identified here is the suffix of the samples that will later be removed to get the sample name 
-exp_path <- args[1]
-pattern <- "_gene_abund.tab"
-exp_files <- list.files(path = exp_path, pattern = pattern)
+handle_command_args(args)
 
 # load in the readcounts
 df <- bind_rows(lapply(exp_files, function(f) {
@@ -55,7 +67,6 @@ df <- df %>% filter(perc_zero < 0.8) %>%
   spread(sample, TPM) %>% 
   rename(GeneID = `Gene ID`)
 
-
 # quantile normalize gene expression values
 # (code adapted from MatrixEQTL sample code)
 df_w <- df[-1]
@@ -70,6 +81,5 @@ df_w$gene_id <- df$GeneID
 df_w <- df_w %>% select(gene_id, everything())
 
 # write outputs
-output_prefix <- args[2]
 write.table(df_w, paste0(output_prefix, '_gene-exp_matrix.txt'), quote = F, row.names = F, sep = '\t')
 write.table(df_loc, paste0(output_prefix, '_gene-exp-loc_matrix.txt'), quote = F, row.names = F, sep = '\t')

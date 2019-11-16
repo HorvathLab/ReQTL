@@ -1,6 +1,5 @@
 # BUILD_VAF_MATRIX.R
-# LAST UPDATED BY LIAM FLINN SPURR ON SEPTEMBER 9, 2019
-# THIS SCRIPT BUILDS THE VAF MATRIX FOR REQTL ANALYSIS
+# LAST UPDATED BY LIAM FLINN SPURR ON NOVEMBER 1, 2019
 
 # install missing required packages and load packages
 load_package <- function(x) {
@@ -12,12 +11,26 @@ load_package <- function(x) {
 
 load_package("tidyverse"); load_package("data.table");
 
-# take arguments from the command line
-args <- commandArgs(trailingOnly = TRUE)
+handle_command_args <- function(args) {
+  # make sure all flags are paired
+  if(length(args) %% 2 != 0) stop("Command line arguments supplied incorrectly!")
+  
+  # load the flags into a "dictionary"
+  arg_df <- data.frame(cbind(flag = args[seq(1, length(args), by = 2)], value = args[seq(2, length(args), by = 2)])) %>%
+    mutate_all(as.character)
+  
+  # identify the location of the readcount files
+  snv_path <<- arg_df$value[arg_df$flag == "-r"]
+  snv_files <<- list.files(path = snv_path, pattern = 'csv')
+  
+  # specify output prefix
+  output_prefix <<- arg_df$value[arg_df$flag == "-o"]
+  
+}
 
-# identify the location of the readcount files
-snv_path <- args[1]
-snv_files <- list.files(path = snv_path, pattern = 'csv')
+# read arguments from the command line
+args <- commandArgs(trailingOnly = TRUE)
+handle_command_args(args)
 
 # load in the readcounts
 df <- bind_rows(lapply(snv_files, function(f) {
@@ -60,6 +73,5 @@ df <- df %>% spread(AlignedReads, R)
 df <- as.matrix(df)
 
 # write outputs
-output_prefix <- args[2]
 write.table(df, paste0(output_prefix, '_VAF_matrix.txt'), quote = F, row.names = F, sep = '\t')
 write.table(df_loc, paste0(output_prefix, '_VAF-loc_matrix.txt'), quote = F, row.names = F, sep = '\t')

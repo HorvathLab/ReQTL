@@ -42,7 +42,7 @@ Transforms the raw expression files into a matrix with information from all prov
 
 #### Sample Command
 ```
-Rscript build_gene-exp_matrix.R data/ my_file_prefix
+Rscript build_gene-exp_matrix.R -e data/ -o ReQTL_test
 ```
 
 &nbsp;
@@ -67,7 +67,7 @@ Transforms the read counts into a variant fraction matrix with information from 
 
 #### Sample command
 ```
-Rscript build_VAF_matrix.R data/ my_file_prefix
+Rscript build_VAF_matrix.R -r data/ -o ReQTL_test
 ```
 &nbsp;
 
@@ -91,7 +91,7 @@ Harmonizes matrices so that all inputs for run_matrix_ReQTL.R contain the same s
 
 #### Sample command
 ```
-Rscript harmonize_matrices.R VAF_matrix.txt gene-exp-matrix.txt covariates_matrix.txt
+Rscript harmonize_matrices.R -r ReQTL_test_VAF_matrix.txt -e ReQTL_test_gene-exp_matrix.txt -c data/covariates_matrix.txt
 ```
 &nbsp;
 
@@ -109,9 +109,8 @@ Runs the ReQTL analysis using MatrixEQTL
 
 * Names of the SNV (-s), SNV location (-sl), gene expression (-g), and gene location (-gl) files from build_gene-exp_matrix.R and build_VAF_matrix.R (or harmonize_matrices.R)
 * *OPTIONAL:* Name of the covariates matrix (-c); we include an example in the "data" folder
+* Prefix for the output files (-o)
 * Logical (T or F, -ct) specifying whether to split the output into *cis* and *trans*
-* Name of the output file for the qq plot (-qq)
-* Names of the *cis* (-cis) and *trans* (-tr) output files or the unified output file (-o) depending on the logical specified above
 * P-value thresholds for the *cis* (-pcis) and *trans* (-ptr) output files or the unified output file (-p) depending on the logical specified above
 
 
@@ -121,17 +120,19 @@ Runs the ReQTL analysis using MatrixEQTL
 OR
 * One file (in the script’s directory) with all of the unified ReQTLs depending on the logical specified above
 
+* One QQ plot of p-values
+
 
 #### Sample commands
 
 Splitting *cis* and *trans*
 ```
-Rscript run_matrix_ReQTL.R -s VAF_matrix_harmonized.txt -sl VAF-loc_matrix.txt -g gene-exp_matrix_harmonized.txt -gl gene-exp-loc_matrix.txt -c covariates_matrix_harmonized.txt -ct T -qq test_qqplot -cis output_cis -tr output_tr -pcis 0.001 -ptr 0.00001
+Rscript run_matrix_ReQTL.R -s ReQTL_test_VAF_matrix_harmonized.txt -sl ReQTL_test_VAF-loc_matrix.txt -g ReQTL_test_gene-exp_matrix_harmonized.txt -gl ReQTL_test_gene-exp-loc_matrix.txt -c covariates_matrix_harmonized.txt -ct T -o ReQTL_test -pcis 0.001 -ptr 0.00001
 ```
 
 Unified *cis* and *trans*
 ```
-Rscript run_matrix_ReQTL.R -s VAF_matrix_harmonized.txt -sl VAF-loc_matrix.txt -g gene-exp_matrix_harmonized.txt -gl gene-exp-loc_matrix.txt -c covariates_matrix_harmonized.txt -ct F -qq test_qqplot -o output -p 0.0001
+Rscript run_matrix_ReQTL.R -s ReQTL_test_VAF_matrix_harmonized.txt -sl ReQTL_test_VAF-loc_matrix.txt -g ReQTL_test_gene-exp_matrix_harmonized.txt -gl ReQTL_test_gene-exp-loc_matrix.txt -c covariates_matrix_harmonized.txt -ct F -o ReQTL_test -p 0.001
 ```
 &nbsp;
 
@@ -142,7 +143,7 @@ Annotates the output of ReQTL as cis/trans based on whether the SNV resides with
 #### Input
 
 * The path to a ReQTL results file
-* The path to the gene location matrix created by build_gene-exp_matrix.R
+* The path to a file containing gene location annotations
 * The desired prefix of the output annotated results file
 
 #### Output
@@ -151,7 +152,7 @@ Annotates the output of ReQTL as cis/trans based on whether the SNV resides with
 
 #### Sample command
 ```
-Rscript annotate_cis_trans.R output.txt gene-exp-loc_matrix.txt my_file_prefix
+Rscript annotate_cis_trans.R -r ReQTL_test_ReQTLs.txt -g data/gene_locations_hg38.txt -o ReQTL_test
 ```
 &nbsp;
 
