@@ -13,20 +13,20 @@ This package was developed on R version 3.6.1 on macOS High Sierra.
 
 * The following R packages installed on your machine:
 
-```
-tidyverse
-MatrixEQTL
-data.table
-GenomicRanges
-```
+  ```
+  tidyverse
+  MatrixEQTL
+  data.table
+  GenomicRanges
+  ```
+  
+  You may install the packages using the following commands:
+  ```
+  install.packages(c("tidyverse", "MatrixEQTL", "data.table", "BiocManager"))
+  BiocManager::install("GenomicRanges")
+  ```
 
-You may install the packages using the following commands:
-```
-install.packages(c("tidyverse", "MatrixEQTL", "data.table", "BiocManager"))
-BiocManager::install("GenomicRanges")
-```
-
-* Each of the following scripts copied to a working directory on your machine
+* Each of the following scripts downloaded on your machine
 
 	```
 	build_gene-exp_matrix.R
@@ -44,8 +44,13 @@ BiocManager::install("GenomicRanges")
 
 ## Running the scripts
 
-The scripts are designed to be run from the *Unix command line* (Terminal on macOS) from the root directory (ReQTL-master). Make sure to *cd* to this directory before beginning.
+The scripts are designed to be run from the *Unix command line* (Terminal on macOS) from the root directory (by default ReQTL-master if the toolkit was downloaded from the link above). Make sure to *cd* to this directory before beginning.
 
+&nbsp;
+
+***
+
+&nbsp;
 
 ### build\_gene-exp_matrix.R
 
