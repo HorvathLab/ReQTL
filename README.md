@@ -42,11 +42,13 @@ This package was developed on R version 3.6.1 on macOS High Sierra.
 
 * (OPTIONAL) a file containing sample covariate information (see sample data)
 
+
+&nbsp;
+
+
 ## Running the scripts
 
 The scripts are designed to be run from the *Unix command line* (Terminal on macOS) from the root directory (by default ReQTL-master if the toolkit was downloaded from the link above). Make sure to *cd* to this directory before beginning.
-
-&nbsp;
 
 ***
 
