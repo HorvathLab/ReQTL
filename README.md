@@ -3,15 +3,15 @@
 
 This toolkit contains the required scripts to transform sequencing files into ReQTL input files and run the MatrixEQTL R package to identify significant variation-expression relationships.
 
+
+&nbsp;
+
+
 ## Getting Started
 
 These instructions will get you a copy of the scripts up and running on your machine for development and testing purposes. See *Running the scripts* for notes on how to use the project on a live system. We have provided sample data that can be used to test the pipeline. It also serves as an example of the data format the pipeline expects.
 
 This package was developed on R version 3.6.1 on macOS High Sierra.
-
-
-&nbsp;
-
 
 ### Prerequisites
 
