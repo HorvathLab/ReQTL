@@ -1,4 +1,5 @@
 # ReQTL: Identifying correlations between expressed SNVs and gene expression using RNA-sequencing data
+### Updated November 26, 2019
 
 This toolkit contains the required scripts to transform sequencing files into ReQTL input files and run the MatrixEQTL R package to identify significant variation-expression relationships.
 
@@ -6,7 +7,24 @@ This toolkit contains the required scripts to transform sequencing files into Re
 
 These instructions will get you a copy of the scripts up and running on your machine for development and testing purposes. See *Running the scripts* for notes on how to use the project on a live system. We have provided sample data that can be used to test the pipeline. It also serves as an example of the data format the pipeline expects.
 
+This package was developed on R version 3.6.1 on macOS High Sierra.
+
 ### Prerequisites
+
+* The following R packages installed on your machine:
+
+```
+tidyverse
+MatrixEQTL
+data.table
+GenomicRanges
+```
+
+You may install the packages using the following commands:
+```
+install.packages(c("tidyverse", "MatrixEQTL", "data.table", "BiocManager"))
+BiocManager::install("GenomicRanges")
+```
 
 * Each of the following scripts copied to a working directory on your machine
 
@@ -26,6 +44,8 @@ These instructions will get you a copy of the scripts up and running on your mac
 
 ## Running the scripts
 
+The scripts are designed to be run from the *Unix command line* (Terminal on macOS) from the root directory (ReQTL-master). Make sure to *cd* to this directory before beginning.
+
 
 ### build\_gene-exp_matrix.R
 
@@ -37,8 +57,8 @@ Transforms the raw expression files into a matrix with information from all prov
 
 
 #### Output
-* One file (in the script’s directory) with the gene expression values for MatrixEQTL
-* One file (in the script’s directory) with the gene locations for MatrixEQTL 
+* One file (in the output directory) with the gene expression values for MatrixEQTL
+* One file (in the putput directory) with the gene locations for MatrixEQTL 
 
 #### Sample Command
 ```
@@ -61,8 +81,8 @@ Transforms the read counts into a variant fraction matrix with information from 
 
 
 #### Output
-* One file (in the script’s directory) with the SNV locations for MatrixEQTL 
-* One file (in the script’s directory) with the SNV variant allele fraction matrix for MatrixEQTL
+* One file (in the output directory) with the SNV locations for MatrixEQTL 
+* One file (in the output directory) with the SNV variant allele fraction matrix for MatrixEQTL
 
 
 #### Sample command
@@ -86,12 +106,12 @@ Harmonizes matrices so that all inputs for run_matrix_ReQTL.R contain the same s
 * The path to a covariate matrix (if no covariate information is used, you will need to modify this script to remove the references to the covariate matrix)
 
 #### Output
-* The three input matrices with only the samples contained in all three
+* Three matrices (in the output directory) corresponding to the three input files, but including only samples that were present in all three input files
 
 
 #### Sample command
 ```
-Rscript harmonize_matrices.R -r ReQTL_test_VAF_matrix.txt -e ReQTL_test_gene-exp_matrix.txt -c data/covariates_matrix.txt
+Rscript harmonize_matrices.R -r output/ReQTL_test_VAF_matrix.txt -e output/ReQTL_test_gene-exp_matrix.txt -c data/covariates_matrix.txt
 ```
 &nbsp;
 
@@ -115,20 +135,20 @@ Runs the ReQTL analysis using MatrixEQTL
 
 
 #### Output
-* One file (in the script’s directory) with the *cis* ReQTLs and one file (in the script’s directory) with the *trans* ReQTLs OR one file (in the script’s directory) with all of the unified ReQTLs depending on the logical specified above
-* One QQ plot of p-values
+* One file (in the output directory) with the *cis* ReQTLs and one file (in the script’s directory) with the *trans* ReQTLs OR one file (in the script’s directory) with all of the unified ReQTLs depending on the logical specified above
+* One QQ plot of p-values (in the output directory)
 
 
 #### Sample commands
 
 Splitting *cis* and *trans*
 ```
-Rscript run_matrix_ReQTL.R -s ReQTL_test_VAF_matrix_harmonized.txt -sl ReQTL_test_VAF-loc_matrix.txt -g ReQTL_test_gene-exp_matrix_harmonized.txt -gl ReQTL_test_gene-exp-loc_matrix.txt -c covariates_matrix_harmonized.txt -ct T -o ReQTL_test -pcis 0.001 -ptr 0.00001
+Rscript run_matrix_ReQTL.R -s output/ReQTL_test_VAF_matrix_harmonized.txt -sl output/ReQTL_test_VAF-loc_matrix.txt -g output/ReQTL_test_gene-exp_matrix_harmonized.txt -gl output/ReQTL_test_gene-exp-loc_matrix.txt -c output/covariates_matrix_harmonized.txt -ct T -o ReQTL_test -pcis 0.001 -ptr 0.00001
 ```
 
 Unified *cis* and *trans*
 ```
-Rscript run_matrix_ReQTL.R -s ReQTL_test_VAF_matrix_harmonized.txt -sl ReQTL_test_VAF-loc_matrix.txt -g ReQTL_test_gene-exp_matrix_harmonized.txt -gl ReQTL_test_gene-exp-loc_matrix.txt -c covariates_matrix_harmonized.txt -ct F -o ReQTL_test -p 0.001
+Rscript run_matrix_ReQTL.R -s output/ReQTL_test_VAF_matrix_harmonized.txt -sl output/ReQTL_test_VAF-loc_matrix.txt -g output/ReQTL_test_gene-exp_matrix_harmonized.txt -gl output/ReQTL_test_gene-exp-loc_matrix.txt -c output/covariates_matrix_harmonized.txt -ct F -o ReQTL_test -p 0.001
 ```
 &nbsp;
 
@@ -143,12 +163,12 @@ Annotates the output of ReQTL as cis/trans based on whether the SNV resides with
 * The desired prefix of the output annotated results file
 
 #### Output
-* One file (in the script’s directory) with the ReQTLs annotated as *cis* or *trans*
+* One file (in the output directory) with the ReQTLs annotated as *cis* or *trans*
 
 
 #### Sample command
 ```
-Rscript annotate_cis_trans.R -r ReQTL_test_ReQTLs.txt -g data/gene_locations_hg38.txt -o ReQTL_test
+Rscript annotate_cis_trans.R -r output/ReQTL_test_all_ReQTLs.txt -g data/gene_locations_hg38.txt -o ReQTL_test
 ```
 &nbsp;
 

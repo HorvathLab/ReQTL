@@ -1,15 +1,9 @@
 # HARMONIZE_MATRICES.R
-# LAST UPDATED BY LIAM FLINN SPURR ON NOVEMBER 1, 2019
+# LAST UPDATED BY LIAM FLINN SPURR ON NOVEMBER 26, 2019
 
-# install missing required packages and load packages
-load_package <- function(x) {
-  if (!require(x, character.only = TRUE)) {
-    install.packages(x, dep = TRUE)
-    if(!require(x, character.only = TRUE)) stop(paste0("Package: ", x, " not found"))
-  }
-}
-
-load_package("tidyverse"); load_package("data.table")
+# load packages
+suppressMessages(library(tidyverse, quietly = TRUE))
+suppressMessages(library(data.table, quietly = TRUE))
 
 handle_command_args <- function(args) {
   # make sure all flags are paired
@@ -43,7 +37,14 @@ vaf.clean <- vaf[,c("SNV", conc)]
 exp.clean <- express[,c("gene_id", conc)]
 cov.clean <- covar[,c("id", conc)]
 
-# write the fixed outputs to a file
-write.table(vaf.clean, paste0(gsub(".txt", "", arg_df$value[arg_df$flag == "-r"]), "_harmonized.txt"), quote = F, row.names = F, sep = '\t')
-write.table(exp.clean, paste0(gsub(".txt", "", arg_df$value[arg_df$flag == "-e"]), "_harmonized.txt"), quote = F, row.names = F, sep = '\t')
-write.table(cov.clean, paste0(gsub(".txt", "", arg_df$value[arg_df$flag == "-c"]), "_harmonized.txt"), quote = F, row.names = F, sep = '\t')
+# write the outputs
+if (!dir.exists("output")) {
+  cat('Creating output directory...\n')
+  dir.create('output')
+} 
+
+write.table(vaf.clean, paste0("output/", gsub(".*/|.txt", "", arg_df$value[arg_df$flag == "-r"]), "_harmonized.txt"), quote = F, row.names = F, sep = '\t')
+write.table(exp.clean, paste0("output/", gsub(".*/|.txt", "", arg_df$value[arg_df$flag == "-e"]), "_harmonized.txt"), quote = F, row.names = F, sep = '\t')
+write.table(cov.clean, paste0("output/", gsub(".*/|.txt", "", arg_df$value[arg_df$flag == "-c"]), "_harmonized.txt"), quote = F, row.names = F, sep = '\t')
+cat(paste0("Matrices containing concordant sample lists saved to output/", gsub(".*/|.txt", "", arg_df$value[arg_df$flag == "-r"]), "_harmonized.txt, output/", 
+    gsub(".*/|.txt", "", arg_df$value[arg_df$flag == "-e"]), "_harmonized.txt, and output/", gsub(".*/|.txt", "", arg_df$value[arg_df$flag == "-c"]), "_harmonized.txt.\n"))

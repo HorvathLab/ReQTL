@@ -1,15 +1,11 @@
 # ANNOTATE_CIS_TRANS.R
-# LAST UPDATED BY LIAM FLINN SPURR ON NOVEMBER 1, 2019
+# LAST UPDATED BY LIAM FLINN SPURR ON NOVEMBER 26, 2019
 
-# install missing required packages and load packages
-load_package <- function(x) {
-  if (!require(x, character.only = TRUE)) {
-    install.packages(x, dep = TRUE)
-    if(!require(x, character.only = TRUE)) stop(paste0("Package: ", x, " not found"))
-  }
-}
+# load packages
+suppressMessages(library(data.table))
+suppressMessages(library(tidyverse))
+suppressMessages(library(GenomicRanges))
 
-load_package("tidyverse"); load_package("data.table"); load_package("GenomicRanges")
 
 handle_command_args <- function(args) {
   # make sure all flags are paired
@@ -51,4 +47,10 @@ res <- res %>% mutate(class = ifelse(gene == gene_snp, "cis", "trans"))
 res <- res %>% select(-chrom:-end)
   
 # write the results to a file
-write.table(res, paste0(output_prefix, "_ReQTLs_cistrans_ann.txt"), quote = F, row.names = F, sep = '\t')
+if (!dir.exists("output")) {
+  cat('Creating output directory...\n')
+  dir.create('output')
+} 
+
+write.table(res, paste0("output/", output_prefix, "_ReQTLs_cistrans_ann.txt"), quote = F, row.names = F, sep = '\t')
+cat(paste0("Cis/trans annotated ReQTLs saved to output/", output_prefix, "_ReQTLs_cistrans_ann.txt\n"))

@@ -1,15 +1,9 @@
 # BUILD_GENE-EXP_MATRIX.R
-# LAST UPDATED BY LIAM FLINN SPURR ON NOVEMBER 09, 2019
+# LAST UPDATED BY LIAM FLINN SPURR ON NOVEMBER 26, 2019
 
-# install missing required packages and load packages
-load_package <- function(x) {
-  if (!require(x, character.only = TRUE)) {
-    install.packages(x, dep = TRUE)
-    if(!require(x, character.only = TRUE)) stop(paste0("Package: ", x, " not found"))
-  }
-}
-
-load_package("data.table"); load_package("tidyverse")
+# load packages
+suppressMessages(library(tidyverse, quietly = TRUE))
+suppressMessages(library(data.table, quietly = TRUE))
 
 handle_command_args <- function(args) {
   # make sure all flags are paired
@@ -81,5 +75,9 @@ df_w$gene_id <- df$GeneID
 df_w <- df_w %>% select(gene_id, everything())
 
 # write outputs
-write.table(df_w, paste0(output_prefix, '_gene-exp_matrix.txt'), quote = F, row.names = F, sep = '\t')
-write.table(df_loc, paste0(output_prefix, '_gene-exp-loc_matrix.txt'), quote = F, row.names = F, sep = '\t')
+cat('Creating output directory...\n')
+if (!dir.exists("output")) dir.create('output')
+
+write.table(df_w, paste0("output/", output_prefix, '_gene-exp_matrix.txt'), quote = F, row.names = F, sep = '\t')
+write.table(df_loc, paste0("output/", output_prefix, '_gene-exp-loc_matrix.txt'), quote = F, row.names = F, sep = '\t')
+cat(paste0("Gene expression and gene locations for MatrixEQTL saved to output/", output_prefix, "_gene-exp_matrix.txt and output/", output_prefix, "_gene-exp-loc_matrix.txt.\n"))

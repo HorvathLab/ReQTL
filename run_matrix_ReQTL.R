@@ -1,17 +1,11 @@
 # RUN_MATRIX_REQTL.R
-# LAST UPDATED BY LIAM FLINN SPURR ON SEPTEMBER 9, 2019
+# LAST UPDATED BY LIAM FLINN SPURR ON NOVEMBER 26, 2019
 # THIS SCRIPT IS BASED OFF OF THE MATRIX EQTL SAMPLE CODE
 # ORIGINAL CODE AVAILABLE AT http://www.bios.unc.edu/research/genomic_software/Matrix_eQTL/runit.html#sample
 
-# install missing required packages and load packages
-load_package <- function(x) {
-  if (!require(x, character.only = TRUE)) {
-    install.packages(x, dep = TRUE)
-    if(!require(x, character.only = TRUE)) stop(paste0("Package: ", x, " not found"))
-  }
-}
-
-load_package("MatrixEQTL"); load_package("tidyverse")
+# load packages
+suppressMessages(library(MatrixEQTL))
+suppressMessages(library(tidyverse))
 
 # get arguments from the command line
 args <- commandArgs(trailingOnly = TRUE)
@@ -47,12 +41,12 @@ handle_command_args <- function(args) {
   errorCovariance <<- numeric()
   
   # Filename for qqplot
-  qqplot_filename <<- paste0(arg_df$value[arg_df$flag == "-o"], "_qqplot.tiff")
+  qqplot_filename <<- paste0("output/", arg_df$value[arg_df$flag == "-o"], "_qqplot.tiff")
   
   if(split_cis_trans == "T") {
     # Output file name
-    output_file_name_cis <<- paste0(arg_df$value[arg_df$flag == "-o"], "_cis_ReQTLs.txt")
-    output_file_name_tra <<- paste0(arg_df$value[arg_df$flag == "-o"], "_trans_ReQTLs.txt")
+    output_file_name_cis <<- paste0("output/", arg_df$value[arg_df$flag == "-o"], "_cis_ReQTLs.txt")
+    output_file_name_tra <<- paste0("output/", arg_df$value[arg_df$flag == "-o"], "_trans_ReQTLs.txt")
     
     # Only associations significant at this level will be saved
     pvOutputThreshold_cis <<- as.numeric(arg_df$value[arg_df$flag == "-pcis"])
@@ -63,7 +57,7 @@ handle_command_args <- function(args) {
     
   } else {
     # Output file name
-    output_file_name <<- paste0(arg_df$value[arg_df$flag == "-o"], "_ReQTLs.txt")
+    output_file_name <<- paste0("output/", arg_df$value[arg_df$flag == "-o"], "_all_ReQTLs.txt")
     
     # Only associations significant at this level will be saved
     pvOutputThreshold <<- as.numeric(arg_df$value[arg_df$flag == "-p"])
