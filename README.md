@@ -9,6 +9,10 @@ These instructions will get you a copy of the scripts up and running on your mac
 
 This package was developed on R version 3.6.1 on macOS High Sierra.
 
+
+&nbsp;
+
+
 ### Prerequisites
 
 * The following R packages installed on your machine:
@@ -177,7 +181,10 @@ Annotates the output of ReQTL as cis/trans based on whether the SNV resides with
 ```
 Rscript annotate_cis_trans.R -r output/ReQTL_test_all_ReQTLs.txt -g data/gene_locations_hg38.txt -o ReQTL_test
 ```
+
+
 &nbsp;
+
 
 ## Authors and Acknowledgements
 
