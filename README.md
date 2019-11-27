@@ -69,7 +69,7 @@ Transforms the raw expression files into a matrix with information from all prov
 
 #### Output
 * One file (in the output directory) with the gene expression values for MatrixEQTL
-* One file (in the putput directory) with the gene locations for MatrixEQTL 
+* One file (in the output directory) with the gene locations for MatrixEQTL 
 
 #### Sample Command
 ```
