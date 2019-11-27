@@ -2,8 +2,8 @@
 # LAST UPDATED BY LIAM FLINN SPURR ON NOVEMBER 26, 2019
 
 # load packages
-suppressMessages(library(tidyverse, quietly = TRUE))
-suppressMessages(library(data.table, quietly = TRUE))
+suppressMessages(library(tidyverse))
+suppressMessages(library(data.table))
 
 handle_command_args <- function(args) {
   # make sure all flags are paired

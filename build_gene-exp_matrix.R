@@ -75,8 +75,10 @@ df_w$gene_id <- df$GeneID
 df_w <- df_w %>% select(gene_id, everything())
 
 # write outputs
-cat('Creating output directory...\n')
-if (!dir.exists("output")) dir.create('output')
+if (!dir.exists("output")) {
+  cat('Creating output directory...\n')
+  dir.create('output')
+} 
 
 write.table(df_w, paste0("output/", output_prefix, '_gene-exp_matrix.txt'), quote = F, row.names = F, sep = '\t')
 write.table(df_loc, paste0("output/", output_prefix, '_gene-exp-loc_matrix.txt'), quote = F, row.names = F, sep = '\t')
