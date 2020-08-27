@@ -69,7 +69,7 @@ for(gene in 1:nrow(df_w)) {
   mat = df_w[gene,]
   mat = apply(mat, 1, rank, ties.method = "average")
   mat = qnorm(mat / (ncol(df_w) + 1))
-  df_w[gene,] = mat
+  df_w[gene,] = t(mat)
 }
 df_w$gene_id <- df$GeneID
 df_w <- df_w %>% select(gene_id, everything())
